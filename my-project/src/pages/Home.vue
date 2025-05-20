@@ -1,116 +1,61 @@
 <template>
-    <div>
-      <!-- Hero Section -->
-      <section class="sect sect--padding-top">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="site">
-                <h1 class="site__title">Fast paced way to grow your business</h1>
-                <h2 class="site__subtitle">Manage analytics like a boss</h2>
-                <div class="site__box-link">
-                  <router-link class="btn btn--width" to="/products">Shop Now</router-link>
-                  <router-link class="btn btn--revert btn--width" to="/contact">Contact</router-link>
-                </div>
-                <img class="site__img" src="https://image.ibb.co/c7grYb/image3015.png" />
-              </div>
-            </div>
-          </div>
+  <div>
+    <!-- Hero Header Section -->
+    <div class="background">
+      <div class="header">
+        <div class="headerWrapper">
+          <h6>we do</h6>
+          <h1>Demo Shopper<br>& Carts</h1>
+
+          <!-- Decorative Shapes -->
+          <div class="circle blue"></div>
+          <div class="square red"></div>
+          <div class="triangle green"></div>
+          <div class="circle orange"></div>
         </div>
-      </section>
-  
-      <!-- Pricing Plans -->
-      <section class="sect sect--padding-bottom">
-        <div class="container">
-          <div class="row row--center">
-            <h1 class="row__title">Pricing</h1>
-            <h2 class="row__sub">What fits your business the best?</h2>
-          </div>
-          <div class="row row--center row--margin">
-            <div class="col-md-4 col-sm-4 price-box price-box--purple">
-              <div class="price-box__wrap">
-                <div class="price-box__img"></div>
-                <h1 class="price-box__title">Startup</h1>
-                <p class="price-box__people">1 - 100 people</p>
-                <h2 class="price-box__discount">
-                  <span class="price-box__dollar">$</span>49<span class="price-box__discount--light">/mo</span>
-                </h2>
-                <h3 class="price-box__price">$65/mo</h3>
-                <p class="price-box__feat">Features</p>
-                <ul class="price-box__list">
-                  <li class="price-box__list-el">1 License</li>
-                  <li class="price-box__list-el">24h helpcenter</li>
-                  <li class="price-box__list-el">No tasks limit</li>
-                  <li class="price-box__list-el">No contractors limit</li>
-                </ul>
-                <div class="price-box__btn">
-                  <a class="btn btn--purple btn--width">Start now</a>
-                </div>
-              </div>
-            </div>
-  
-            <div class="col-md-4 col-sm-4 price-box price-box--violet">
-              <div class="price-box__wrap">
-                <div class="price-box__img"></div>
-                <h1 class="price-box__title">Business</h1>
-                <p class="price-box__people">100 - 500 people</p>
-                <h2 class="price-box__discount">
-                  <span class="price-box__dollar">$</span>149<span class="price-box__discount--light">/mo</span>
-                </h2>
-                <h3 class="price-box__price">$225/mo</h3>
-                <p class="price-box__feat">Features</p>
-                <ul class="price-box__list">
-                  <li class="price-box__list-el">1 License</li>
-                  <li class="price-box__list-el">24h helpcenter</li>
-                  <li class="price-box__list-el">No tasks limit</li>
-                  <li class="price-box__list-el">No contractors limit</li>
-                </ul>
-                <div class="price-box__btn">
-                  <a class="btn btn--violet btn--width">Start now</a>
-                </div>
-              </div>
-            </div>
-  
-            <div class="col-md-4 col-sm-4 price-box price-box--blue">
-              <div class="price-box__wrap">
-                <div class="price-box__img"></div>
-                <h1 class="price-box__title">Corporate</h1>
-                <p class="price-box__people">500+ people</p>
-                <h2 class="price-box__discount">
-                  <span class="price-box__dollar">$</span>399<span class="price-box__discount--light">/mo</span>
-                </h2>
-                <h3 class="price-box__price">$499/mo</h3>
-                <p class="price-box__feat">Features</p>
-                <ul class="price-box__list">
-                  <li class="price-box__list-el">1 License</li>
-                  <li class="price-box__list-el">24h helpcenter</li>
-                  <li class="price-box__list-el">No tasks limit</li>
-                  <li class="price-box__list-el">No contractors limit</li>
-                </ul>
-                <div class="price-box__btn">
-                  <a class="btn btn--blue btn--width">Start now</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      </div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    name: "HomePage",
-    mounted() {
-      const $ = window.$;
-      if ($ && $("#myCarousel").carousel) {
-        $("#myCarousel").carousel({ interval: false });
-      }
-    }
-  };
-  </script>
-  
-  <style scoped>
-  @import url('https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i');
-  </style>
-  
+
+    <!-- Features Section -->
+    <div class="section services">
+      <div class="sectionWrapper">
+        <h6>explore</h6>
+        <h2>Our Features</h2>
+        <p class="description">
+          Shop top products, manage your cart, and access your account easily with our intuitive navigation.
+        </p>
+        <div class="square blue"></div>
+
+        <!-- Feature Cards -->
+        <div class="grid">
+          <router-link to="/shop" class="card">
+            <h3>Shop</h3>
+            <p>Browse our best-selling and featured products.</p>
+          </router-link>
+          <router-link to="/cart" class="card">
+            <h3>Cart</h3>
+            <p>Review your selected items before checkout.</p>
+          </router-link>
+          <router-link to="/login" class="card">
+            <h3>Login / Register</h3>
+            <p>Access or create your account to personalize your shopping.</p>
+          </router-link>
+          <router-link to="/best-items" class="card">
+            <h3>Best Items</h3>
+            <p>See our most popular products curated for you.</p>
+          </router-link>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HomePage'
+}
+</script>
+
+<style scoped>
+@import url('@/assets/newhome.css');
+</style>
