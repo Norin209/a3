@@ -56,11 +56,11 @@
                   <h3>Quick Links</h3>
                 </div>
                 <ul>
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">About</a></li>
-                  <li><a href="#">Shop</a></li>
-                  <li><a href="#">Cart</a></li>
-                  <li><a href="#">Contact</a></li>
+                  <li><router-link to="/">Home</router-link></li>
+                  <li><router-link to="/about">About</router-link></li>
+                  <li><router-link to="/products">Shop</router-link></li>
+                  <li><router-link to="/cart">Cart</router-link></li>
+                  <li><router-link to="/contact">Contact</router-link></li>
                 </ul>
               </div>
             </div>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="subscribe-form">
                   <form>
-                    <input type="text" placeholder="Email Address">
+                    <input type="text" placeholder="Email Address" />
                     <button><i class="fab fa-telegram-plane"></i></button>
                   </form>
                 </div>
@@ -94,10 +94,10 @@
             <div class="col-lg-6 d-none d-lg-block text-right">
               <div class="footer-menu">
                 <ul>
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">Terms</a></li>
-                  <li><a href="#">Privacy</a></li>
-                  <li><a href="#">Policy</a></li>
+                  <li><router-link to="/">Home</router-link></li>
+                  <li><router-link to="/terms">Terms</router-link></li>
+                  <li><router-link to="/privacy">Privacy</router-link></li>
+                  <li><router-link to="/policy">Policy</router-link></li>
                 </ul>
               </div>
             </div>
@@ -116,5 +116,4 @@
   <style scoped>
   @import "@/assets/footer.css";
   </style>
-
   

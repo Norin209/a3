@@ -6,8 +6,6 @@
         <div class="headerWrapper">
           <h6>we do</h6>
           <h1>Demo Shopper<br>& Carts</h1>
-
-          <!-- Decorative Shapes -->
           <div class="circle blue"></div>
           <div class="square red"></div>
           <div class="triangle green"></div>
@@ -26,7 +24,6 @@
         </p>
         <div class="square blue"></div>
 
-        <!-- Feature Cards -->
         <div class="grid">
           <router-link to="/shop" class="card">
             <h3>Shop</h3>
@@ -47,13 +44,62 @@
         </div>
       </div>
     </div>
+
+    <!-- Best Seller Carousel Section -->
+    <div class="section best-sellers">
+      <div class="sectionWrapper">
+        <h6>popular</h6>
+        <h2>Best Sellers</h2>
+        <div class="carousel">
+          <div class="carousel-card">
+            <img :src="items[current].img" :alt="items[current].name" class="carousel-img" />
+            <h3>{{ items[current].name }}</h3>
+            <p>{{ items[current].desc }}</p>
+          </div>
+          <div class="carousel-controls">
+            <button @click="prev">&#8592;</button>
+            <button @click="next">&#8594;</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HomePage'
-}
+  name: 'HomePage',
+  data() {
+    return {
+      current: 0,
+      items: [
+        {
+          name: 'Sweater',
+          desc: 'Warm and cozy for any season.',
+          img: require('@/assets/sweater.jpg')
+        },
+        {
+          name: 'Sneakers',
+          desc: 'Perfect for running or everyday use.',
+          img: require('@/assets/shoes.jpg')
+        },
+        {
+          name: 'T-Shirt',
+          desc: 'Lightweight and stylish.',
+          img: require('@/assets/tshirt.jpg')
+        }
+      ]
+    };
+  },
+  methods: {
+    next() {
+      this.current = (this.current + 1) % this.items.length;
+    },
+    prev() {
+      this.current = (this.current - 1 + this.items.length) % this.items.length;
+    }
+  }
+};
 </script>
 
 <style scoped>
