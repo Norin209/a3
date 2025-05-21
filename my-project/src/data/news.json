@@ -1,0 +1,38 @@
+[
+    {
+      "id": 1,
+      "date": "2025-05-01",
+      "title": "New Store Opening",
+      "content": "We're launching a new store in Melbourne CBD.",
+      "category": "Events"
+    },
+    {
+      "id": 2,
+      "date": "2025-05-10",
+      "title": "Summer Sale Starts",
+      "content": "Enjoy up to 50% off on selected items.",
+      "category": "Sales"
+    },
+    {
+      "id": 3,
+      "date": "2025-05-15",
+      "title": "Flash Deal Day",
+      "content": "Limited-time electronics deals!",
+      "category": "Promotions"
+    },
+    {
+      "id": 4,
+      "date": "2025-05-18",
+      "title": "Community Event",
+      "content": "Join us at the Swinburne pop-up market!",
+      "category": "Community"
+    },
+    {
+      "id": 5,
+      "date": "2025-05-20",
+      "title": "App Update Released",
+      "content": "We added faster checkout and mobile cart sync.",
+      "category": "Updates"
+    }
+    
+  ]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Sweater",
+    "price": 40,
+    "description": "A cozy knit sweater perfect for chilly days.",
+    "category": "Clothing",
+    "image": "/image/sweater.jpeg"
+  },
+  {
+    "id": 2,
+    "name": "Shoes",
+    "price": 70,
+    "description": "Stylish and comfortable sneakers.",
+    "category": "Footwear",
+    "image": "/image/shoes.jpeg"
+  },
+  {
+    "id": 3,
+    "name": "T-Shirt",
+    "price": 25,
+    "description": "A soft and breathable cotton t-shirt.",
+    "category": "Clothing",
+    "image": "/image/tshirt.jpeg"
+  },
+  {
+    "id": 4,
+    "name": "Backpack",
+    "price": 55,
+    "description": "Spacious and durable backpack for everyday use.",
+    "category": "Accessories",
+    "image": "/image/backpack.jpeg"
+  },
+  {
+    "id": 5,
+    "name": "Headphones",
+    "price": 80,
+    "description": "Noise-cancelling over-ear headphones.",
+    "category": "Electronics",
+    "image": "/image/headphone.jpeg"
+  }
+]
