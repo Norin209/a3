@@ -13,19 +13,19 @@
               <router-link to="/" class="nav-link">Home</router-link>
             </li>
             <li class="nav-item">
+              <router-link to="/About" class="nav-link">About Us</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/News" class="nav-link">News</router-link>
+            </li>
+            <li class="nav-item">
               <router-link to="/products" class="nav-link">Shop</router-link>
             </li>
             <li class="nav-item">
               <router-link to="/cart" class="nav-link">Cart</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/checkout" class="nav-link">Checkout</router-link>
-            </li>
-            <li class="nav-item">
               <router-link to="/login" class="nav-link">Login</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/register" class="nav-link">Register</router-link>
             </li>
             <li class="nav-item">
               <router-link to="/contact" class="nav-link">Contact</router-link>

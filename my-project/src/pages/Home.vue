@@ -76,17 +76,17 @@ export default {
         {
           name: 'Sweater',
           desc: 'Warm and cozy for any season.',
-          img: require('@/assets/sweater.jpg')
+          img: require('@/assets/sweater.jpeg')
         },
         {
           name: 'Sneakers',
           desc: 'Perfect for running or everyday use.',
-          img: require('@/assets/shoes.jpg')
+          img: require('@/assets/shoes.jpeg')
         },
         {
           name: 'T-Shirt',
           desc: 'Lightweight and stylish.',
-          img: require('@/assets/tshirt.jpg')
+          img: require('@/assets/tshirt.jpeg')
         }
       ]
     };
