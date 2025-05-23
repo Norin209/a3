@@ -2,7 +2,7 @@
   <div class="container py-5">
     <h2 class="mb-4">Latest News</h2>
 
-    <!-- Search -->
+    <!-- Search Bar -->
     <input
       v-model="searchQuery"
       type="text"
@@ -10,13 +10,18 @@
       class="form-control mb-4"
     />
 
-    <!-- Add News Form (Only for Admin) -->
+    <!-- Add News (Admin Only) -->
     <div v-if="isAdmin" class="mb-5 p-4 bg-light border rounded">
       <h4>Add News</h4>
       <input v-model="newTitle" placeholder="Title" class="form-control mb-2" />
       <input v-model="newCategory" placeholder="Category" class="form-control mb-2" />
-      <textarea v-model="newContent" placeholder="Content" class="form-control mb-2" rows="3"></textarea>
-      <button class="btn btn-primary w-100" @click="addNews">Add News</button>
+      <textarea
+        v-model="newContent"
+        placeholder="Content"
+        class="form-control mb-2"
+        rows="3"
+      ></textarea>
+      <button class="btn btn-dark w-100" @click="addNews">Add News</button>
     </div>
 
     <!-- News List -->
@@ -106,16 +111,17 @@ export default {
       this.currentPage = page;
     },
     nextPage() {
-      if (this.currentPage < this.totalPages) {
-        this.currentPage++;
-      }
+      if (this.currentPage < this.totalPages) this.currentPage++;
     },
     prevPage() {
-      if (this.currentPage > 1) {
-        this.currentPage--;
-      }
+      if (this.currentPage > 1) this.currentPage--;
     },
     addNews() {
+      if (!this.newTitle || !this.newContent || !this.newCategory) {
+        alert('Please fill in all fields.');
+        return;
+      }
+
       const newArticle = {
         id: Date.now(),
         title: this.newTitle,
@@ -132,8 +138,10 @@ export default {
       this.newCategory = '';
     },
     deleteNews(id) {
-      this.allNews = this.allNews.filter((item) => item.id !== id);
-      localStorage.setItem('tempNews', JSON.stringify(this.allNews));
+      if (confirm('Are you sure you want to delete this news item?')) {
+        this.allNews = this.allNews.filter((item) => item.id !== id);
+        localStorage.setItem('tempNews', JSON.stringify(this.allNews));
+      }
     }
   },
   mounted() {
@@ -150,8 +158,19 @@ export default {
 .news-card h4 {
   font-weight: bold;
 }
+
 .pagination .page-item.active .page-link {
-  background-color: #007bff;
-  color: white;
+  background-color: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.pagination .page-link {
+  color: #000;
+}
+
+.pagination .page-link:hover {
+  background-color: #000;
+  color: #fff;
 }
 </style>
