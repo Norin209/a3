@@ -25,7 +25,7 @@
         <div class="square blue"></div>
 
         <div class="grid">
-          <router-link to="/shop" class="card">
+          <router-link to="/products" class="card">
             <h3>Shop</h3>
             <p>Browse our best-selling and featured products.</p>
           </router-link>
@@ -37,9 +37,9 @@
             <h3>Login / Register</h3>
             <p>Access or create your account to personalize your shopping.</p>
           </router-link>
-          <router-link to="/best-items" class="card">
-            <h3>Best Items</h3>
-            <p>See our most popular products curated for you.</p>
+          <router-link to="/news" class="card">
+            <h3>Our News</h3>
+            <p>See our most event and upcoming events.</p>
           </router-link>
         </div>
       </div>
@@ -103,5 +103,6 @@ export default {
 </script>
 
 <style scoped>
+
 @import url('@/assets/newhome.css');
 </style>

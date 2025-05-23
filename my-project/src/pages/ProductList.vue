@@ -19,14 +19,17 @@
           @mouseenter="hovered = product.id"
           @mouseleave="hovered = null"
         >
+          <!-- Product Image -->
           <img :src="product.image" class="card-img-top product-img" :alt="product.name" />
+
+          <!-- Product Info -->
           <div class="card-body">
             <h5 class="card-title">{{ product.name }}</h5>
             <p class="card-text">{{ product.description }}</p>
             <p class="fw-bold">${{ product.price }}</p>
           </div>
 
-          <!-- ✅ Hover Buttons, hidden if slider open -->
+          <!-- View / Order buttons (only when hovered & no modal) -->
           <div
             v-if="hovered === product.id && !sliderMode"
             class="hover-button-row"
@@ -49,6 +52,7 @@
           <p class="price fw-bold">${{ currentProduct.price }}</p>
         </div>
 
+        <!-- Navigation Controls -->
         <div class="slider-controls">
           <button @click="prevProduct">←</button>
           <button @click="nextProduct">→</button>
@@ -67,35 +71,39 @@ export default {
   name: 'ProductList',
   data() {
     return {
-      selectedCategory: '',
-      hovered: null,
-      zoomed: null,
-      sliderMode: false,
-      products,
-      cart: []
+      selectedCategory: '',   // current category filter
+      hovered: null,          // hovered product id
+      zoomed: null,           // id of product shown in slider modal
+      sliderMode: false,      // is the slider modal open?
+      products,               // imported static product list
+      cart: []                // local cart state (for now)
     };
   },
   computed: {
     uniqueCategories() {
+      // List of unique categories from all products
       return [...new Set(this.products.map(p => p.category))];
     },
     filteredProducts() {
+      // Show all products or only ones in selected category
       return !this.selectedCategory
         ? this.products
         : this.products.filter(p => p.category === this.selectedCategory);
     },
     currentProduct() {
+      // Find the zoomed product by ID
       return this.products.find(p => p.id === this.zoomed);
     }
   },
   methods: {
     addToCart(product) {
       this.cart.push(product);
+      localStorage.setItem('cart', JSON.stringify(this.cart)); // save cart
       alert(`${product.name} added to cart!`);
     },
     handleView(id) {
-      this.hovered = null; // clear hover before modal opens
-      this.zoomed = id;
+      this.hovered = null;   // clear hover
+      this.zoomed = id;      // open clicked product
       this.sliderMode = true;
     },
     closeSlider() {
@@ -122,12 +130,12 @@ export default {
   height: 200px;
 }
 
-/* 🧼 Remove stray overlays */
+/* 🔧 Fix overlays */
 .custom-product-card::after {
   display: none !important;
 }
 
-/* ✅ Hover View/Order buttons */
+/* ✅ Hover buttons below each card */
 .hover-button-row {
   position: absolute;
   bottom: 15px;
@@ -138,12 +146,12 @@ export default {
   z-index: 10;
 }
 
-/* ⛔ Hide all hover buttons if slider is active */
+/* ❌ Hide hover buttons when modal is active */
 .slider-modal ~ .row .hover-button-row {
   display: none !important;
 }
 
-/* --- SLIDER MODAL (Home-style) --- */
+/* 🔍 Modal layout */
 .slider-modal {
   position: fixed;
   top: 0;
@@ -158,6 +166,7 @@ export default {
   padding: 20px;
 }
 
+/* 🔍 Modal card */
 .slider-card {
   background: white;
   border-radius: 16px;
@@ -168,6 +177,7 @@ export default {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
+/* 🔍 Image inside modal */
 .slider-image {
   width: 100%;
   border-radius: 12px;
@@ -176,28 +186,27 @@ export default {
   margin-bottom: 20px;
 }
 
+/* 🔍 Text */
 .slider-content h3 {
   font-size: 1.8rem;
   margin-bottom: 8px;
 }
-
 .slider-content .description {
   font-size: 1rem;
   color: #555;
   margin-bottom: 6px;
 }
-
 .slider-content .price {
   font-size: 1.2rem;
   font-weight: bold;
 }
 
+/* 🔁 Arrows */
 .slider-controls {
   display: flex;
   justify-content: space-between;
   margin-top: 16px;
 }
-
 .slider-controls button {
   background: none;
   border: none;

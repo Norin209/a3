@@ -4,10 +4,11 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  font-family: "Source Sans Pro";
+  font-family: "Source Sans Pro", sans-serif;
   max-width: 100vw;
   overflow-x: hidden;
 }
@@ -34,16 +35,6 @@ h6 {
   font-weight: 600;
   text-transform: uppercase;
   animation: fadeIn 1s ease;
-}
-
-@keyframes fadeInTitle {
-  0%, 25% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
 }
 
 p.description {
@@ -81,6 +72,8 @@ p.description {
   z-index: 2;
 }
 
+/* SHAPES */
+
 .circle, .square, .triangle {
   position: absolute;
   z-index: 1;
@@ -100,32 +93,12 @@ p.description {
   box-shadow: 3px 3px 15px rgba(61, 178, 213, 0.4);
 }
 
-@keyframes circleBlueMove {
-  0% {
-    opacity: 0;
-    transform: translate(200px, 75px) rotate(90deg);
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
 .circle.orange {
   background: linear-gradient(#D53D3D, #D5B83D);
   bottom: 0;
   right: 0;
   animation: circleOrangeMove 2s ease;
   box-shadow: 3px 3px 15px rgba(213, 184, 61, 0.4);
-}
-
-@keyframes circleOrangeMove {
-  0%, 35% {
-    opacity: 0;
-    transform: translate(-200px, -75px) rotate(90deg);
-  }
-  100% {
-    opacity: 1;
-  }
 }
 
 .square.red {
@@ -139,16 +112,6 @@ p.description {
   box-shadow: 3px 3px 15px rgba(213, 61, 201, 0.4);
 }
 
-@keyframes squareRedMove {
-  0%, 20% {
-    opacity: 0;
-    transform: translate(-200px, 75px) rotate(90deg);
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
 .triangle svg {
   width: 175px;
   height: 175px;
@@ -158,82 +121,112 @@ p.description {
   animation: triangleGreendMove 2s ease;
 }
 
-@keyframes triangleGreendMove {
-  0%, 50% {
-    opacity: 0;
-    transform: translate(200px, -75px) rotate(90deg);
-  }
-  100% {
-    opacity: 1;
-  }
+/* KEYFRAMES */
+
+@keyframes fadeInTitle {
+  0%, 25% { opacity: 0; }
+  100% { opacity: 1; }
 }
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes circleBlueMove {
+  0% { opacity: 0; transform: translate(200px, 75px) rotate(90deg); }
+  100% { opacity: 1; }
+}
+
+@keyframes circleOrangeMove {
+  0%, 35% { opacity: 0; transform: translate(-200px, -75px) rotate(90deg); }
+  100% { opacity: 1; }
+}
+
+@keyframes squareRedMove {
+  0%, 20% { opacity: 0; transform: translate(-200px, 75px) rotate(90deg); }
+  100% { opacity: 1; }
+}
+
+@keyframes triangleGreendMove {
+  0%, 50% { opacity: 0; transform: translate(200px, -75px) rotate(90deg); }
+  100% { opacity: 1; }
+}
+
+/* SERVICES GRID + CARDS */
 
 .services .grid {
   display: grid;
-  grid-template-columns: 500px 500px;
-  grid-column-gap: 100px;
-  grid-row-gap: 60px;
-  grid-template-rows: auto auto;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  margin-top: 40px;
 }
 
 .card {
-  background: linear-gradient(to bottom right, #313131, #0F0F0F);
-  margin-bottom: 40px;
-  border-radius: 10px;
-  padding: 40px 30px 50px;
+  background: white;
+  border: 2px solid black;
+  border-radius: 12px;
+  padding: 32px 24px;
   text-decoration: none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  color: inherit;
+  color: black;
+  transition: all 0.3s ease;
+  position: relative;
+  height: 230px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  height: 230px;
-  position: relative;
+}
+
+.card h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 18px;
+  color: #333;
 }
 
 .card:hover {
-  transform: scale(1.03) translateY(-8px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  background-color: black;
+  color: white;
+  transform: translateY(-6px);
 }
 
+.card:hover p {
+  color: #ddd;
+}
+
+/* View badge on hover */
 .card::after {
   content: "View";
   position: absolute;
   left: 50%;
   bottom: 20px;
   transform: translateX(-50%);
-  font-size: 16px;
-  color: white;
-  background-color: rgba(255, 255, 255, 0.1);
+  font-size: 14px;
   padding: 6px 16px;
+  background-color: #000;
+  color: #fff;
   border-radius: 20px;
   opacity: 0;
-  transition: opacity 0.3s ease, bottom 0.3s ease;
+  transition: all 0.3s ease;
   font-weight: 700;
 }
 
 .card:hover::after {
   opacity: 1;
-  bottom: 15px;
+  bottom: 12px;
 }
 
-.card h3 {
-  color: white;
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 5px;
-}
-
-.card p {
-  color: #C3C3C3;
-  font-size: 22px;
-  font-weight: normal;
-}
+/* CAROUSEL */
 
 .carousel {
   text-align: center;
   padding: 2rem 0;
 }
+
 .carousel-card {
   background: white;
   padding: 1.5rem;
@@ -242,6 +235,7 @@ p.description {
   margin: auto;
   max-width: 600px;
 }
+
 .carousel-img {
   width: 100%;
   max-height: 300px;
@@ -249,13 +243,23 @@ p.description {
   border-radius: 8px;
   margin-bottom: 1rem;
 }
+
 .carousel-controls {
   margin-top: 1rem;
 }
+
 .carousel-controls button {
   margin: 0 1rem;
   font-size: 24px;
-  background: none;
-  border: none;
+  background: white;
+  color: black;
+  border: 2px solid black;
+  padding: 0.5rem 1rem;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.carousel-controls button:hover {
+  background: black;
+  color: white;
 }
