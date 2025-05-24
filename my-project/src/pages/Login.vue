@@ -25,22 +25,22 @@
         </div>
 
         <!-- Login Button -->
-        <button type="submit" class="btn btn-primary w-100 mb-3">Login In</button>
+        <button type="submit" class="btn btn-primary w-100 mb-3">Log In</button>
 
         <!-- Google Sign-In -->
         <button type="button" class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center gap-2">
-          <img src="https://img.icons8.com/color/16/000000/google-logo.png" />
+          <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google logo" />
           Sign in with Google
         </button>
 
-        <!-- Sign Up Button -->
+        <!-- Sign Up -->
         <button type="button" class="btn btn-link text-primary w-100 mt-3" @click="showRegister = true">
           Sign up
         </button>
       </form>
     </div>
 
-    <!-- Register Popup Modal -->
+    <!-- Register Popup -->
     <div v-if="showRegister" class="modal-backdrop">
       <div class="modal-content-box bg-white p-4 rounded shadow-sm">
         <h4 class="mb-3">Register</h4>
@@ -83,10 +83,9 @@ export default {
         );
 
         if (foundUser) {
-          // ✅ Save logged-in user for later access control (e.g. news page)
           localStorage.setItem('loggedInUser', JSON.stringify(foundUser));
-
-          alert(`Welcome back, ${foundUser.name}!`);
+          alert(`Welcome back, ${foundUser.name || 'User'} (${foundUser.role})!`);
+          this.$router.push('/');
         } else {
           alert('Invalid email or password');
         }
@@ -100,17 +99,17 @@ export default {
       const newUser = {
         name: this.registerName,
         email: this.registerEmail,
-        password: this.registerPassword
+        password: this.registerPassword,
+        role: 'member'
       };
 
-      let users = JSON.parse(localStorage.getItem('users')) || [];
+      const users = JSON.parse(localStorage.getItem('users')) || [];
       users.push(newUser);
       localStorage.setItem('users', JSON.stringify(users));
 
-      alert(`Registered as ${newUser.name}`);
+      alert(`Registered as ${newUser.name} (member)`);
       this.showRegister = false;
 
-      // Clear fields
       this.registerName = '';
       this.registerEmail = '';
       this.registerPassword = '';
@@ -133,8 +132,6 @@ export default {
   width: 16px !important;
   height: 16px !important;
   border-radius: 3px !important;
-  padding: 0 !important;
-  box-shadow: none !important;
   appearance: auto !important;
   -webkit-appearance: checkbox !important;
 }

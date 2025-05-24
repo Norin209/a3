@@ -10,18 +10,19 @@
       class="form-control mb-4"
     />
 
-    <!-- Add News (Admin Only) -->
+    <!-- Admin Add News Section -->
     <div v-if="isAdmin" class="mb-5 p-4 bg-light border rounded">
       <h4>Add News</h4>
       <input v-model="newTitle" placeholder="Title" class="form-control mb-2" />
       <input v-model="newCategory" placeholder="Category" class="form-control mb-2" />
       <textarea
         v-model="newContent"
-        placeholder="Content"
+        placeholder="Content (min 10 characters)"
         class="form-control mb-2"
         rows="3"
       ></textarea>
-      <button class="btn btn-dark w-100" @click="addNews">Add News</button>
+      <button class="btn btn-dark w-100 mb-2" @click="addNews">Add News</button>
+      <button class="btn btn-outline-danger w-100" @click="resetNews">Reset News to Default</button>
     </div>
 
     <!-- News List -->
@@ -83,11 +84,7 @@ export default {
   },
   computed: {
     isAdmin() {
-      return (
-        this.loggedInUser &&
-        this.loggedInUser.email === 'norinung209@gmail.com' &&
-        this.loggedInUser.password === 'admin123'
-      );
+  return this.loggedInUser?.role === 'admin';
     },
     filteredNews() {
       const q = this.searchQuery.toLowerCase();
@@ -122,6 +119,11 @@ export default {
         return;
       }
 
+      if (this.newContent.length < 10) {
+        alert('Content must be at least 10 characters long.');
+        return;
+      }
+
       const newArticle = {
         id: Date.now(),
         title: this.newTitle,
@@ -141,6 +143,13 @@ export default {
       if (confirm('Are you sure you want to delete this news item?')) {
         this.allNews = this.allNews.filter((item) => item.id !== id);
         localStorage.setItem('tempNews', JSON.stringify(this.allNews));
+      }
+    },
+    resetNews() {
+      if (confirm('This will remove all temporary changes and reload the default news. Continue?')) {
+        localStorage.removeItem('tempNews');
+        this.allNews = [...require('../data/news.json')];
+        this.currentPage = 1;
       }
     }
   },

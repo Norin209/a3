@@ -59,16 +59,11 @@
     <!-- Conditional Image -->
     <div class="image-preview mt-4">
       <img
-        v-if="selectedImage === 'mountain'"
-        src="@/assets/mountain.jpeg"
-        alt="Mountain"
+        v-if="selectedImage"
+        :src="getImagePath(selectedImage)"
+        :alt="selectedImage"
         class="img-fluid rounded shadow"
-      />
-      <img
-        v-else-if="selectedImage === 'ocean'"
-        src="@/assets/ocean.jpeg"
-        alt="Ocean"
-        class="img-fluid rounded shadow"
+        loading="lazy"
       />
     </div>
   </div>
@@ -87,6 +82,11 @@ export default {
   computed: {
     fullName() {
       return `${this.firstName} ${this.lastName}`.trim();
+    }
+  },
+  methods: {
+    getImagePath(imageType) {
+      return process.env.BASE_URL + `image/${imageType}.jpeg`;
     }
   }
 };

@@ -19,7 +19,13 @@
           @mouseenter="hovered = product.id"
           @mouseleave="hovered = null"
         >
-          <img :src="getImage(product.image)" class="card-img-top product-img" :alt="product.name" @error="onImageError" />
+          <img
+            :src="getImage(product.image)"
+            class="card-img-top product-img"
+            :alt="product.name"
+            @error="onImageError"
+            loading="lazy"
+          />
 
           <div class="card-body">
             <h5 class="card-title">{{ product.name }}</h5>
@@ -38,7 +44,13 @@
     <!-- Slider Modal -->
     <div v-if="sliderMode" class="slider-modal" @click.self="closeSlider">
       <div class="slider-card">
-        <img :src="getImage(currentProduct.image)" class="slider-image" :alt="currentProduct.name" @error="onImageError" />
+        <img
+          :src="getImage(currentProduct.image)"
+          class="slider-image"
+          :alt="currentProduct.name"
+          @error="onImageError"
+          loading="lazy"
+        />
         <div class="slider-content">
           <h3>{{ currentProduct.name }}</h3>
           <p class="description">{{ currentProduct.description }}</p>
@@ -74,17 +86,27 @@ export default {
       return [...new Set(this.products.map(p => p.category))];
     },
     filteredProducts() {
-      return !this.selectedCategory
-        ? this.products
-        : this.products.filter(p => p.category === this.selectedCategory);
+      return this.selectedCategory
+        ? this.products.filter(p => p.category === this.selectedCategory)
+        : this.products;
     },
     currentProduct() {
       return this.products.find(p => p.id === this.zoomed);
     }
   },
+  mounted() {
+    this.cart = JSON.parse(localStorage.getItem('cart')) || [];
+  },
   methods: {
     addToCart(product) {
-      this.cart.push(product);
+      const existing = this.cart.find(item => item.id === product.id);
+
+      if (existing) {
+        existing.quantity = (existing.quantity || 1) + 1;
+      } else {
+        this.cart.push({ ...product, quantity: 1 });
+      }
+
       localStorage.setItem('cart', JSON.stringify(this.cart));
       alert(`${product.name} added to cart!`);
     },
@@ -107,11 +129,11 @@ export default {
       const prevIndex = (index - 1 + this.products.length) % this.products.length;
       this.zoomed = this.products[prevIndex].id;
     },
-    onImageError(e) {
-      e.target.src = process.env.BASE_URL + 'image/fallback.jpeg';
-    },
     getImage(path) {
       return process.env.BASE_URL + path.replace(/^\//, '');
+    },
+    onImageError(e) {
+      e.target.src = process.env.BASE_URL + 'image/fallback.jpeg';
     }
   }
 };

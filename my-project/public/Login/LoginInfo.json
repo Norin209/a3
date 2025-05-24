@@ -1,8 +1,20 @@
 [
-    {
-      "name": "Norin",
-      "email": "norinung209@gmail.com",
-      "password": "admin123"
-    }
-  ]
-  
+  {
+    "name": "Admin User",
+    "email": "norinung209@gmail.com",
+    "password": "admin123",
+    "role": "admin"
+  },
+  {
+    "name": "Member One",
+    "email": "member1@email.com",
+    "password": "member123",
+    "role": "member"
+  },
+  {
+    "name": "Member Two",
+    "email": "member2@email.com",
+    "password": "member456",
+    "role": "member"
+  }
+]

@@ -71,7 +71,13 @@
           <h5 class="fw-bold mb-4">Cart Summary</h5>
 
           <div v-for="(item, index) in cartItems" :key="index" class="d-flex align-items-start mb-3">
-            <img :src="getImage(item.image)" class="me-3 rounded" style="width: 80px; height: 80px; object-fit: cover;" @error="onImageError" />
+            <img
+              :src="getImage(item.image)"
+              class="me-3 rounded"
+              style="width: 80px; height: 80px; object-fit: cover;"
+              @error="onImageError"
+              loading="lazy"
+            />
             <div class="flex-grow-1">
               <h6 class="mb-1 text-dark">{{ item.name }}</h6>
               <p class="small text-muted">{{ item.description }}</p>

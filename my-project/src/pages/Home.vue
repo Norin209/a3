@@ -52,7 +52,12 @@
         <h2>Best Sellers</h2>
         <div class="carousel">
           <div class="carousel-card">
-            <img :src="items[current].img" :alt="items[current].name" class="carousel-img" />
+            <img
+              :src="items[current].img"
+              :alt="items[current].name"
+              class="carousel-img"
+              loading="lazy"
+            />
             <h3>{{ items[current].name }}</h3>
             <p>{{ items[current].desc }}</p>
           </div>
