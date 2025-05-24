@@ -1,4 +1,8 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
-  transpileDependencies: true
+  publicPath: './',
+  transpileDependencies: true,
+  devServer: {
+    historyApiFallback: true
+  }
 })

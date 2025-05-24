@@ -33,37 +33,33 @@
         <div class="mb-4">
           <h5 class="fw-bold">Shipping</h5>
           <div class="row mb-2">
-            <div class="col">
-              <input v-model="firstName" type="text" class="form-control" placeholder="First Name" />
-            </div>
-            <div class="col">
-              <input v-model="lastName" type="text" class="form-control" placeholder="Last Name" />
-            </div>
+            <div class="col"><input v-model="firstName" class="form-control" placeholder="First Name" /></div>
+            <div class="col"><input v-model="lastName" class="form-control" placeholder="Last Name" /></div>
           </div>
-          <input v-model="phone" type="tel" class="form-control mb-2" placeholder="Phone" />
-          <input v-model="address" type="text" class="form-control mb-2" placeholder="Address" />
-          <input v-model="apt" type="text" class="form-control mb-2" placeholder="Apt, Suite (optional)" />
+          <input v-model="phone" class="form-control mb-2" placeholder="Phone" />
+          <input v-model="address" class="form-control mb-2" placeholder="Address" />
+          <input v-model="apt" class="form-control mb-2" placeholder="Apt, Suite (optional)" />
           <div class="row mb-2">
-            <div class="col"><input v-model="city" type="text" class="form-control" placeholder="City" /></div>
-            <div class="col"><input v-model="state" type="text" class="form-control" placeholder="State" /></div>
-            <div class="col"><input v-model="zip" type="text" class="form-control" placeholder="ZIP Code" /></div>
+            <div class="col"><input v-model="city" class="form-control" placeholder="City" /></div>
+            <div class="col"><input v-model="state" class="form-control" placeholder="State" /></div>
+            <div class="col"><input v-model="zip" class="form-control" placeholder="ZIP Code" /></div>
           </div>
           <select v-model="country" class="form-select">
-            <option disabled>Country</option>
+            <option disabled value="">Country</option>
             <option>Australia</option>
             <option>United States</option>
             <option>Canada</option>
           </select>
         </div>
 
-        <!-- Payment Method -->
+        <!-- Payment -->
         <div class="mb-4">
           <h5 class="fw-bold">Payment Method</h5>
           <div class="p-3 border rounded bg-white shadow-sm">
-            <input type="text" class="form-control mb-2" placeholder="Card Number" />
+            <input class="form-control mb-2" placeholder="Card Number" />
             <div class="row">
-              <div class="col"><input type="text" class="form-control" placeholder="MM/YY" /></div>
-              <div class="col"><input type="text" class="form-control" placeholder="CVV" /></div>
+              <div class="col"><input class="form-control" placeholder="MM/YY" /></div>
+              <div class="col"><input class="form-control" placeholder="CVV" /></div>
             </div>
           </div>
         </div>
@@ -75,16 +71,16 @@
           <h5 class="fw-bold mb-4">Cart Summary</h5>
 
           <div v-for="(item, index) in cartItems" :key="index" class="d-flex align-items-start mb-3">
-            <img :src="item.image" class="me-3 rounded" style="width: 80px; height: 80px; object-fit: cover;" />
+            <img :src="getImage(item.image)" class="me-3 rounded" style="width: 80px; height: 80px; object-fit: cover;" @error="onImageError" />
             <div class="flex-grow-1">
               <h6 class="mb-1 text-dark">{{ item.name }}</h6>
               <p class="small text-muted">{{ item.description }}</p>
               <p class="fw-bold text-dark">
-                ${{ item.price }} × {{ item.quantity || 1 }} = ${{ (item.price * (item.quantity || 1)).toFixed(2) }}
+                ${{ item.price }} × {{ item.quantity }} = ${{ (item.price * item.quantity).toFixed(2) }}
               </p>
               <div class="d-flex align-items-center gap-2">
                 <button class="btn btn-outline-secondary btn-sm" @click="decreaseQuantity(index)">-</button>
-                <span>{{ item.quantity || 1 }}</span>
+                <span>{{ item.quantity }}</span>
                 <button class="btn btn-outline-secondary btn-sm" @click="increaseQuantity(index)">+</button>
               </div>
               <button class="btn btn-outline-danger btn-sm mt-1" @click="removeFromCart(index)">Remove</button>
@@ -105,13 +101,8 @@
             <span>${{ estimatedTotal }}</span>
           </div>
 
-          <button class="btn btn-dark w-100 mt-3" @click="placeOrder">
-            Place Order
-          </button>
-
-          <p class="text-muted mt-3 small">
-            By placing your order, you agree to our Terms and Privacy Policy.
-          </p>
+          <button class="btn btn-dark w-100 mt-3" @click="placeOrder">Place Order</button>
+          <p class="text-muted mt-3 small">By placing your order, you agree to our Terms and Privacy Policy.</p>
         </div>
       </div>
     </div>
@@ -133,13 +124,13 @@ export default {
       city: '',
       state: '',
       zip: '',
-      country: 'Australia',
+      country: '',
       warranty: []
     };
   },
   computed: {
     totalPrice() {
-      return this.cartItems.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0).toFixed(2);
+      return this.cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2);
     },
     warrantyTotal() {
       return this.warranty.reduce((sum, cost) => sum + parseFloat(cost), 0).toFixed(2);
@@ -149,18 +140,18 @@ export default {
     }
   },
   mounted() {
-    this.cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    this.cartItems = (JSON.parse(localStorage.getItem('cart')) || []).map(item => ({
+      ...item,
+      quantity: item.quantity || 1
+    }));
   },
   methods: {
     placeOrder() {
-      const requiredFields = [
+      const fields = [
         this.email, this.firstName, this.lastName, this.phone,
         this.address, this.city, this.state, this.zip, this.country
       ];
-
-      const allFilled = requiredFields.every(field => field.trim() !== '');
-
-      if (!allFilled) {
+      if (fields.some(f => f.trim() === '')) {
         alert("❗ Please fill out all required fields before placing the order.");
         return;
       }
@@ -175,9 +166,6 @@ export default {
       localStorage.setItem('cart', JSON.stringify(this.cartItems));
     },
     increaseQuantity(index) {
-      if (!this.cartItems[index].quantity) {
-        this.cartItems[index].quantity = 1;
-      }
       this.cartItems[index].quantity++;
       localStorage.setItem('cart', JSON.stringify(this.cartItems));
     },
@@ -186,6 +174,12 @@ export default {
         this.cartItems[index].quantity--;
         localStorage.setItem('cart', JSON.stringify(this.cartItems));
       }
+    },
+    getImage(path) {
+      return process.env.BASE_URL + path.replace(/^\//, '');
+    },
+    onImageError(e) {
+      e.target.src = process.env.BASE_URL + 'image/fallback.jpeg';
     }
   }
 };
@@ -193,38 +187,21 @@ export default {
 
 <style scoped>
 .checkout-card {
-  background-color: #fff !important;
-  color: #000 !important;
+  background-color: #fff;
+  color: #000;
   border: 2px solid #000;
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
-  position: relative;
-  z-index: 2;
   max-height: none;
   overflow-y: auto;
 }
-
-.checkout-card .hover-button-row {
-  display: none !important;
-}
-
 label {
   font-size: 0.9rem;
   font-weight: bold;
   text-transform: uppercase;
 }
-
-.card {
-  border-radius: 10px;
-}
-
-.form-check-label {
-  font-size: 0.9rem;
-}
-
-input,
-select {
+input, select {
   font-size: 0.95rem;
 }
 </style>

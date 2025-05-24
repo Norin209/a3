@@ -48,7 +48,7 @@
     <!-- Best Seller Carousel Section -->
     <div class="section best-sellers">
       <div class="sectionWrapper">
-        <h6>popular</h6>
+        <h6><b>popular</b></h6>
         <h2>Best Sellers</h2>
         <div class="carousel">
           <div class="carousel-card">
@@ -76,17 +76,17 @@ export default {
         {
           name: 'Sweater',
           desc: 'Warm and cozy for any season.',
-          img: require('@/assets/sweater.jpeg')
+          img: process.env.BASE_URL + 'image/sweater.jpeg'
         },
         {
           name: 'Sneakers',
           desc: 'Perfect for running or everyday use.',
-          img: require('@/assets/shoes.jpeg')
+          img: process.env.BASE_URL + 'image/shoes.jpeg'
         },
         {
           name: 'T-Shirt',
           desc: 'Lightweight and stylish.',
-          img: require('@/assets/tshirt.jpeg')
+          img: process.env.BASE_URL + 'image/tshirt.jpeg'
         }
       ]
     };
@@ -103,6 +103,5 @@ export default {
 </script>
 
 <style scoped>
-
 @import url('@/assets/newhome.css');
 </style>
