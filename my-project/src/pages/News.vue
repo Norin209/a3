@@ -22,7 +22,8 @@
         rows="3"
       ></textarea>
       <button class="btn btn-dark w-100 mb-2" @click="addNews">Add News</button>
-      <button class="btn btn-outline-danger w-100" @click="resetNews">Reset News to Default</button>
+      <button class="btn btn-outline-danger w-100 mb-2" @click="resetNews">Reset News to Default</button>
+      <button class="btn btn-outline-secondary w-100" @click="logout">Logout (Admin)</button>
     </div>
 
     <!-- News List -->
@@ -84,7 +85,7 @@ export default {
   },
   computed: {
     isAdmin() {
-  return this.loggedInUser?.role === 'admin';
+      return this.loggedInUser?.role === 'admin';
     },
     filteredNews() {
       const q = this.searchQuery.toLowerCase();
@@ -151,6 +152,11 @@ export default {
         this.allNews = [...require('../data/news.json')];
         this.currentPage = 1;
       }
+    },
+    logout() {
+      localStorage.removeItem('loggedInUser');
+      this.loggedInUser = null;
+      alert('You have been logged out.');
     }
   },
   mounted() {
