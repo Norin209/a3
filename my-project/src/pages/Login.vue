@@ -72,7 +72,7 @@ export default {
   methods: {
     async handleLogin() {
       try {
-        const res = await fetch('./Login/LoginInfo.json');
+        const res = await fetch(process.env.BASE_URL + 'LoginInfo.json');
         const fileUsers = await res.json();
 
         const tempUsers = JSON.parse(localStorage.getItem('users')) || [];
